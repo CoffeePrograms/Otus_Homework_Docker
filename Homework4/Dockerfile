@@ -9,11 +9,16 @@ EXPOSE 8081
 
 
 # This stage is used to build the service project
+# Стадия сборки
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+
+# Копируем только .csproj и восстанавливаем зависимости
 COPY ["Homework4/Homework4.csproj", "Homework4/"]
 RUN dotnet restore "./Homework4/Homework4.csproj"
+
+# Копируем остальные файлы и собираем проект
 COPY . .
 WORKDIR "/src/Homework4"
 RUN dotnet build "./Homework4.csproj" -c $BUILD_CONFIGURATION -o /app/build
