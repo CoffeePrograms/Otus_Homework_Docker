@@ -35,7 +35,11 @@ jobs:
     - name: Check if containers are running
       run: |
         docker compose ps
-
+        
+    - name: Wait for service to start
+      run: |
+        sleep 10  # Подождать 10 секунд
+        
     - name: Run tests (optional)
       run: |
         # curl для проверки работы веб-сервиса
