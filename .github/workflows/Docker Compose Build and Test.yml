@@ -22,19 +22,19 @@ jobs:
 
     - name: Validate docker-compose.yml
       run: |
-        docker-compose -f docker-compose.yml config
+        docker compose -f docker-compose.yml config
 
     - name: Build Docker images
       run: |
-        docker-compose -f docker-compose.yml build
+        docker compose -f docker-compose.yml build
 
     - name: Start Docker containers
       run: |
-        docker-compose -f docker-compose.yml up -d
+        docker compose -f docker-compose.yml up -d
 
     - name: Check if containers are running
       run: |
-        docker-compose ps
+        docker compose ps
 
     - name: Run tests (optional)
       run: |
@@ -43,4 +43,4 @@ jobs:
 
     - name: Stop and remove containers
       run: |
-        docker-compose -f docker-compose.yml down
+        docker compose -f docker-compose.yml down
