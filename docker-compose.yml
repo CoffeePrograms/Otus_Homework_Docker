@@ -1,0 +1,39 @@
+services:
+  homework4:
+    image: homework4
+    container_name: homework4
+    build:
+      context: .
+      dockerfile: Homework4/Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      - postgres
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres_homework;Port=5432;Database=homework_db;Username=postgres;Password=qwe890-
+    networks:
+      - homework_local
+
+  postgres:
+    container_name: postgres_homework
+    image: postgres:16.3
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: qwe890-
+      POSTGRES_DB: homework_db
+    volumes:
+      - db-postgres-homework:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"
+    networks:
+      - homework_local
+    restart: unless-stopped
+
+volumes:
+  db-postgres-homework:
+
+networks:
+  homework_local:
+    name: homework_local
+    driver: bridge
